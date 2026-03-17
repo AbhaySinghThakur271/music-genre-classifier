@@ -1,39 +1,39 @@
-![Project Screenshot](https://raw.githubusercontent.com/AbhaySinghThakur271/music-genre-classifier/main/Screenshot%20(3).png)
 # 🎵 Music Genre Classification
-
+ 
+![Project Screenshot](https://raw.githubusercontent.com/AbhaySinghThakur271/music-genre-classifier/main/Screenshot%20(3).png)
+ 
 A machine learning system that automatically classifies music tracks into genres — such as **Blues**, **Classical**, **Hip-Hop**, and **Rock** — based on their audio features. This project is an excellent introduction to audio signal processing and multi-class classification.
-
+ 
 ---
-
+ 
 ## 📌 Overview
-
+ 
 Music genre classification is a classic problem in Music Information Retrieval (MIR). This project extracts meaningful features from raw audio files and trains a machine learning model to predict the genre of a given track.
-
+ 
 ---
-
+ 
 ## 🎯 Learning Outcomes
-
+ 
 - Audio signal processing and feature extraction (MFCCs, chroma, spectral features)
 - Working with non-traditional data types (audio files)
 - Building a multi-class classification model
 - Applying machine learning to a creative domain
-
+ 
 ---
-
+ 
 ## 🛠️ Tech Stack
-
+ 
 - **Language:** Python
 - **Libraries:** Librosa, NumPy, Pandas, Scikit-learn, Matplotlib
 - **Dataset:** [GTZAN Music Genre Dataset](http://marsyas.info/downloads/datasets.html) (or similar)
-
+ 
 ---
-
+ 
 ## 📁 Project Structure
-
+ 
 ```
 music-genre-classification/
 │
-├──docker file/
 ├── data/                   # Raw and processed audio files
 ├── notebooks/              # Jupyter notebooks for exploration
 ├── src/
@@ -44,28 +44,28 @@ music-genre-classification/
 ├── requirements.txt
 └── README.md
 ```
-
+ 
 ---
-
+ 
 ## 🚀 Getting Started
-
+ 
 ### 1. Clone the Repository
-
+ 
 ```bash
 git clone https://github.com/your-username/music-genre-classification.git
 cd music-genre-classification
 ```
-
+ 
 ### 2. Install Dependencies
-
+ 
 ```bash
 pip install -r requirements.txt
 ```
-
+ 
 ### 3. Prepare the Dataset
-
+ 
 Download the GTZAN dataset (or your own audio dataset) and place it inside the `data/` folder. The folder structure should look like:
-
+ 
 ```
 data/
 ├── blues/
@@ -74,29 +74,29 @@ data/
 ├── rock/
 └── ...
 ```
-
+ 
 ### 4. Extract Features
-
+ 
 ```bash
 python src/preprocess.py
 ```
-
+ 
 ### 5. Train the Model
-
+ 
 ```bash
 python src/train.py
 ```
-
+ 
 ### 6. Predict Genre
-
+ 
 ```bash
 python src/predict.py --file path/to/your/audio.wav
 ```
-
+ 
 ---
-
+ 
 ## 📊 Features Extracted
-
+ 
 | Feature | Description |
 |---|---|
 | MFCCs | Mel-Frequency Cepstral Coefficients — captures timbral texture |
@@ -104,13 +104,13 @@ python src/predict.py --file path/to/your/audio.wav
 | Spectral Centroid | Brightness of the sound |
 | Zero Crossing Rate | Rate at which the signal changes sign |
 | Spectral Roll-off | Frequency below which 85% of energy is contained |
-
+ 
 ---
-
+ 
 ## 🤖 Model
-
+ 
 A multi-class classifier (e.g., Random Forest / SVM / Neural Network) is trained on the extracted audio features. The model outputs one of the supported genre labels.
-
+ 
 **Supported Genres:**
 - Blues
 - Classical
@@ -122,41 +122,132 @@ A multi-class classifier (e.g., Random Forest / SVM / Neural Network) is trained
 - Pop
 - Reggae
 - Rock
-
+ 
 ---
-
+ 
 ## 📈 Results
-
+ 
 | Model | Accuracy |
 |---|---|
 | Random Forest | ~85% |
 | SVM | ~83% |
 | Neural Network | ~88% |
-
+ 
 > Results may vary depending on the dataset split and hyperparameters used.
-
+ 
 ---
+ 
+## 🐳 Docker
+ 
+You can run this project inside a Docker container without worrying about local dependencies.
+ 
+### Prerequisites
+ 
+- [Docker](https://www.docker.com/get-started) installed on your machine
+ 
+### Dockerfile
+ 
+Create a `Dockerfile` in the root of your project:
+ 
+```dockerfile
+FROM python:3.9-slim
 
+WORKDIR /app
+
+COPY requirements.txt .
+
+COPY app.py .
+COPY music_genre_cnn.h5 .
+COPY scaler.joblib .
+
+
+RUN pip install --no-cache-dir --upgrade pip -r requirements.txt
+
+EXPOSE 8501
+
+CMD ["streamlit", "run", "app.py"]
+```
+ 
+### Build the Docker Image
+ 
+```bash
+docker build -t music-genre-classifier .
+```
+ 
+### Run the Container
+ 
+```bash
+docker run -p 8501:8501 music-genre-classifier
+```
+ 
+Then open your browser and go to `http://localhost:8501` to use the app.
+ 
+---
+ 
+## ☁️ Deploy on Streamlit Community Cloud
+ 
+You can deploy this app for free using [Streamlit Community Cloud](https://streamlit.io/cloud) in just a few steps.
+ 
+### Prerequisites
+ 
+- A `app.py` file in your repo that contains your Streamlit app
+- A `requirements.txt` file listing all dependencies
+- Your project pushed to a **public GitHub repository**
+ 
+### Steps
+ 
+**1. Push your code to GitHub**
+ 
+Make sure your repository is public and contains at least:
+ 
+```
+music-genre-classification/
+├── app.py               # Your Streamlit app
+├── requirements.txt     # All dependencies
+└── models/              # Your saved trained model
+```
+ 
+**2. Go to Streamlit Community Cloud**
+ 
+Visit [share.streamlit.io](https://share.streamlit.io) and sign in with your GitHub account.
+ 
+**3. Deploy your app**
+ 
+- Click **"New app"**
+- Select your GitHub repository
+- Set the **main file path** to `app.py`
+- Click **"Deploy"**
+ 
+Streamlit will automatically install your dependencies and launch the app. You'll get a public URL like:
+ 
+```
+https://your-username-music-genre-classifier-app-xxxx.streamlit.app
+```
+ 
+> **Tip:** Add `streamlit` to your `requirements.txt` before deploying.
+ 
+---
+ 
 ## 🤝 Contributing
-
+ 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements.
-
+ 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/my-feature`)
 3. Commit your changes (`git commit -m 'Add my feature'`)
 4. Push to the branch (`git push origin feature/my-feature`)
 5. Open a Pull Request
-
+ 
 ---
-
+ 
 ## 📄 License
-
+ 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
+ 
 ---
-
+ 
 ## 🙏 Acknowledgements
-
+ 
 - [ProjectAI](https://projectai.in) for the project inspiration and learning roadmap
 - [GTZAN Dataset](http://marsyas.info/downloads/datasets.html) for the audio data
 - [Librosa](https://librosa.org/) for audio processing utilities
