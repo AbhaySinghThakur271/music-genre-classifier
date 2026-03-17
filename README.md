@@ -33,6 +33,7 @@ Music genre classification is a classic problem in Music Information Retrieval (
 ```
 music-genre-classification/
 │
+├──docker file/
 ├── data/                   # Raw and processed audio files
 ├── notebooks/              # Jupyter notebooks for exploration
 ├── src/
