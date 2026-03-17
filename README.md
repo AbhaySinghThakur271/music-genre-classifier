@@ -1,6 +1,8 @@
 # 🎵 Music Genre Classification
  
 ![Project Screenshot](https://raw.githubusercontent.com/AbhaySinghThakur271/music-genre-classifier/main/Screenshot%20(3).png)
+
+[Working Link](https://huggingface.co/spaces/abhaysinghthakur2/music-genre-classifier)
  
 A machine learning system that automatically classifies music tracks into genres — such as **Blues**, **Classical**, **Hip-Hop**, and **Rock** — based on their audio features. This project is an excellent introduction to audio signal processing and multi-class classification.
  
